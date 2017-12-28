@@ -1,0 +1,787 @@
+iter(c) 
+enumerate(k)
+reversed(k)
+zip(a,b,c,d)
+--------------------------------------
+def fun(a,b):
+	def func(c):
+		return 2*c+a
+	print(dir())
+	return func(a)*func(b),func
+
+res, fres=fun(2,3)
+print(res)
+print(fres(2))
+--------------------------------------
+def fun(a,b):
+	def func(c):
+		return a+b+c
+	return func
+
+f=fun(2,3)
+print(f(4))
+print(f(10))
+g=fun(100,500)
+print(g(10))
+print(g,f)
+--------------------------------------
+def fun(a,b):
+	def func(c):
+		nonlocal a
+		a=0
+		return a+b+c
+	#c=func(1000) comment is important
+	print(a)
+	return func
+
+f=fun(2,3)
+print(f(10))
+---------------------------------------
+f=lambda a,b: a+b
+f(1,2)
+f((1,2,3),(1,2,3,4,5))
+---------------------------------------
+a,b,c,d=range(3,7)
+a,b,c,d=c,d,a,b
+---------------------------------------
+def fun(a,*args):
+	print(a)
+	print(args)
+
+fun(1,2,3,4,5)
+fun(1)
+---------------------------------------
+field as return
+
+def rep(a):
+	yield 3
+	for i in range(a):
+		if i>8:
+			return 1
+    	yield i
+	yield -100500
+
+fi=rep(4)
+tuple(fi)
+fi=rep(4)
+next(fi)
+tuple(fi)
+----------------------------------------
+def fun(s):
+	res=s[0]
+	for e in s[1:]:
+		res+=e
+	return res
+
+print(fun((1,2,3,4,5)))
+print(fun("QWERTY"))
+----------------------------------------
+def fun(a,b,c,d):
+	print(a,b,c,d)
+
+a="QQ","WW","ZZ","XX"
+fun(*a)
+fun(*range(7,11))
+----------------------------------------
+def func(*args):
+	print(args)
+	print(*args)
+
+func(1,2,"QQ",4,5)
+----------------------------------------
+gen = (i*2+1 for i in range(5))
+tuple(gen)
+tuple(gen)
+print("<<"+str[i]+">>" for in range(12))
+print(*("<<"+str[i]+">>" for in range(12)))
+print(*("<<"+str[i]+">>" for in range(12) if i%3!=1))
+print(*((i,j) for in range(3) for j in range(10,13)))
+----------------------------------------
+def pargen(a):
+	v = yield 3
+	for i in range(a):
+    	v = yield i+v
+	v = yield -100500
+
+gen=pargen(4)
+c=next(gen)
+print("Start:",c)
+while True:
+	#c=next(gen)
+	c=gen.send(c%2)
+	print(c)
+----------------------------------------
+class C:
+	def __getitem__(*args):
+		print(args)
+	
+c=C()
+print(c[100500])
+print(c[10:20])
+
+# __getitem__ ~ []
+# slice(2,4) ~ [2,4]
+----------------------------------------
+l = [i*j+1 for i in range(3) for j in range(10,13)]
+l = [i*j+1 for i in range(3) for j in range(10,13) if (i+j)%2]
+l = list(range(20,50,3))
+l[2:4]=1,2,3,4,5
+l[2:2]=[100500] ~ l.insert(2,100500)
+l[3:6]=[] ~ del l[3:6]
+----------------------------------------
+g = (i*2 + 1 for i in range(6))
+g - generator
+----------------------------------------
+a = [1,2,2345,7]
+b = [1,2,2345]
+c = [1,2,12345,0]
+----------------------------------------
+print("""sadasdsad
+sjdiasjd
+oudsahdoudsa""")
+s = '''sad safsf
+iafiasjf
+sioahoais'''
+print(s)
+s.__repr__()
+print("asdf\nsdf")
+----------------------------------------
+for i in range(100000):
+	print(i, end="\r")
+----------------------------------------
+print("\a/\b/\c/\d/")
+print(r"\a/\b/\c/\d/")
+----------------------------------------
+a,b,c = "ZXC"
+for c in "qwerty":
+	print(c)
+элементы строки - строка единичной длины
+s = "qrsafasfas"
+s[500:600] - можно
+s[500] - нельзя
+----------------------------------------
+"width={} height={}".format(12,45)
+"width={2} height={1}".format(12,45,8)
+"{:x}".format(100500) - вывод в 16 системе
+0x47EDE
+0xDEADBEEF
+"{:10.5f}".format(1234.12452347856)
+"{:010.5f}".format(34.12452347856)
+"{:<10}".format(123)
+"{:^10}".format(123)
+"{:.^10}".format(123)
+----------------------------------------
+matrix = eval(input())
+res = "..".join((str(e) for e in matrix))
+res = "\n".join("..".join((str(e) for e in l)) for l in matrix)
+print(res)
+----------------------------------------
+переменная = 345
+print(переменная)
+s = "qweпаргыв"
+len(s)
+s.encode()
+b = s.encode()
+b.decode()
+----------------------------------------
+b = b"dsasdf" байтовая строка, эл-ты которого байты (более привычные строки")
+----------------------------------------
+s = "ASDFasd" хотим заменить F на Q
+s = s[:3] + 'Q' + s[4:]
+----------------------------------------
+Множества
+по множеству поиск происходит на константое время
+a = {1,2,4,6,7} - множество 
+9 in a - допустимо
+x,y,*z = a
+l = list(a) -  получить список из элементов множества
+f = frozenset(a) - получение константного множества, от которого можно получить hash
+Добавляются элементы во множество по порядку размещения их хешей в хеш-таблице
+s = {i*2+1 for i in range(1,20) if i!=10 }
+----------------------------------------
+Словари
+d = {1:123, "QQ":[1,2,3], (1,2,3):None}
+d["QQ"]
+t = {i*2+1: tuple(range(i)) for i in range(1,5) }
+d = dict(((1,2), (3,4), (5,6), (1,6), (7,6)))
+print(d.setdefault(123,"QQ"))
+print(d.setdefault(123,"DPKG"))
+d2 = {123: 5, 5: [1,2,3,4,5]}
+d.update(d2) - добавление словаря в словарь
+----------------------------------------
+def fun(x,y,**argn):
+	print(x,y)
+	for n in argn:
+		print(n,"=",argn[n],sep="")
+
+fun(2,3)
+fun(2,3,b="ZZZ")
+----------------------------------------
+def fun(a=1, b=2, c=3):
+	print(a,b,c)
+
+fun()
+fun(b=100500)
+d = {"a":22, "b":33}
+fun(**d)
+d = {"a":22, "zzz":3}
+fun(**d) #ERROR, т.к нет аргумента zzz
+----------------------------------------
+def allparam(*argn, **argp):
+	print(*argn, *("{}:{}".format(k,v) for k,v in argp.items()))
+
+allparam(1, 2, 3, aa = "asd", Qaws = "QQ", k = 100500)
+----------------------------------------
+Новый модуль
+'''Module doc'''
+Var = 123
+
+def fun(a):
+	'''Dummy function'''
+	return a*2+1
+
+print(__name__)
+if __name__ == "__main__":
+	print("Hello",fun(100500))
+
+#save as modul.py
+
+import modul
+import modul as ZZZ
+----------------------------------------
+class C:
+	pass #пустой
+
+C.field = "QQ"
+
+def fun(a):
+	return a*2+1
+
+C.fooon = fun
+
+C.fooon(100500)
+
+class C:
+	Var = 123
+	Var2 = "QQ"
+
+c = C()
+dir(c)
+
+a = []
+a.append(C())
+a[0].Var
+
+C.another = "one"
+----------------------------------------
+class C:
+	Var = 100500
+	def fun(self, addition):
+		self.Another = self.Var*2+1+addition
+		return 42
+
+b = C()
+print(*(s for s in dir(b) if not s.startswith("_")))
+print(b.fun(33))
+print(*(s for s in dir(b) if not s.startswith("_")))
+print(b.Var, b.Another)
+----------------------------------------
+class C:
+	def __init__(self, start): #типа конструктора
+		self.start = start
+		self.another = 0
+	def fun(self, addition):
+		self.another += addition
+		self.start += 1
+
+print(*(s for s in dir(C) if not s.startswith("_")))
+b = C(100)
+print(*(s for s in dir(b) if not s.startswith("_")))
+print(b.start, b.another)
+b.fun(100)
+print(b.start, b.another)
+b.__init__(-1)
+print(b.start, b.another)
+-------------------------
+class C:
+	pass
+
+c = C()
+dir(c)
+c.__dict__ #поля, не явл. системнынми
+c.field = 100500
+c.__dict__
+c.__dict__["ZZZ"] = "QQ"
+-------------------------
+class C:
+	def __init__(self, per1, per2):
+		self.val, self.res = per1, per2
+	def __str__(self):
+		return "<{}:{}>".format(self.val, self.res)
+	def __repr__(self):
+		return "{}:{} of {}".format(self.val, self.res, type(self))
+	def __bool__(self):
+		return self.val != self.res
+	def __len__(self):
+		return self.val + self.res
+	def __getattr__(self,attr):
+		if attr == "random":
+			return 5
+		return "NOPE"
+	def __del__(self) #вызывается при удалении объекта, т.е. когда не остается ссылок на данный объект
+
+c = C(12,56)
+print(c)
+
+a = C(12,34)
+if a:
+	print("QQ")
+else:
+	print("QKRQ")
+
+a = C(12,12)
+if a:
+	print("QQ")
+else:
+	print("QKRQ")
+
+len(a)
+
+a.random #для __getattr__
+a.fsajifsai #для __getattr__
+-------------------------
+class C:
+	def __getitem__(self,idx):
+		if type(idx) is int:
+			return idx%2
+		elif type(idx) is slice:
+			return idx.start, idx.stop
+	def __iter__(self):
+		return iter("QWA")
+
+c = C()
+c[12]
+c[12:45]
+list(c)
+-------------------------
+class C:
+	def __init__(self, var):
+		self.val = var
+	def __lt__(self, other):
+		return self.val < other.val
+	def __le__(self, other):
+		return self.val <= other.val
+	def __add__(self,other):
+		return C(self.val + other.val)
+	def __repr__(self):
+		return "(({}))".format(self.val)
+	def __matmul__(self,other):
+		return "Mat Mul"
+
+class D:
+	val = 100
+
+a = C(123)
+b = C(12)
+a < b
+a > b
+a <= b
+
+a + b
+
+d = D()
+a + d
+d + a
+
+a @ b
+-------------------------
+class C:
+	var = 10
+	#_internal = 777 //нужные моменты, сделанные разработчиками. Не нужно трогать их
+	def __init__(self,val):
+		self.var = val
+	def __str__(self):
+		return "<{}>".format(self.var)
+	def __add__(self, other):
+		return type(self)(self.var + other.var)
+
+class S(C):
+	def __str__(self):
+		s = C.__str__(self)
+		return "{}:{}".format(s, type(self))	
+	__repr__ = __str__
+
+class D(S):
+	def newm(self):
+		return self.var%2
+
+c = C(123)
+s = S(100500)
+print(s)
+d = D(456)
+print(c,type(c),issubclass(C,D), isinstance(c,C), isinstance(c,D))
+print(d,type(d),issubclass(D,C), isinstance(d,D), isinstance(d,C))
+c+s
+s+c
+type(s+c)
+type(c+s)
+type(s+d)
+type(d+c)
+d+c
+-------------------------
+class C:
+	__var = 10
+	
+	def __str__(self):
+		return "<{}>".format(self.__var)
+
+class D(C):
+	def add(self):
+		self._C__var += 1
+
+c = C()
+print(c)
+d = D()
+print(d)
+d.add()
+print(d)
+-------------------------
+class A:
+	var = 1
+
+class B:
+	def fun(self):
+		return 100500
+
+class C(A,B):
+	Field = None
+
+b = B()
+c = C()
+-------------------------
+class Desc:
+	var = 0
+	def __set__(self, obj, val):
+		print("Set {} of {}".format(val, obj))
+		self.var = val
+	def __get__(self, obj, cls):
+		print("Get from {} (class {})".format(obj,cls))
+		return self.var
+	def __delete__(self,obj):
+		print("Del from", obj)
+
+class C:
+	fld = Desc()
+	def __init__(self, name):
+		self.name = name
+	def __str__(self):
+		return self.name
+
+c = C("BEBE")
+c.fld = 100500
+c.fld
+-------------------------
+class Desc:
+	var = 0
+	def __set__(self, obj, val):
+		raise ValueError
+	def __get__(self, obj, cls):
+		print("Get from {} (class {})".format(obj,cls))
+		return self.var
+	def __delete__(self,obj)
+		print("Del from", obj)
+
+class C:
+	fld = Desc()
+	def __init__(self, name):
+		self.name = name
+	def __str__(self):
+		return self.name
+
+c.fld
+c.fld = 0 #ValueError
+c.__dict__
+c.__dict__["fld"]="QQ"
+-------------------------
+def fun():
+	print(ZZZZ)
+
+try:
+	fun()
+except Exception as e:
+	print("oops", e)
+
+print("Done")
+-------------------------
+Ромбическое наследование
+    A.v,w
+   /    \
+ BB.w  CC.w
+  |     |
+  B    C.v вызывает C.w
+   \   /
+	 D
+
+Линеаризация должна обладать свойством монотонности
+-------------------------
+class A: pass
+
+class B(A): pass
+
+class C(A): pass
+
+class D(B,C): pass
+
+D.__mro__
+-------------------------
+class Int(int):
+	def __add__(self,other):
+		return type(self)(int.__add__(self,other))
+
+class INt:
+	def __init__(self, *val):
+		self.val = int(*val)
+	def __add__(self, other):
+		return type(self)(self.val + other.val)
+
+class Int2(Int):
+	def __mul__(self, other):
+		return type(self)(super().__mul__(other))
+
+#super() обращение к процедуре с выстраиванием линеризованного графа (иначе говоря, берется та перегрузка, которая была последней в линии)
+i,j = Int2(9), Int2(80)
+type(i*j)
+type(i+j)
+-------------------------
+try:
+	a = 2
+	b = "QWE"
+	c = a+b
+except: (на деле except Exception:)
+	print("Ooops")
+
+Перехватывает все ошибки помимо синтаксической 
+-------------------------
+try:
+	a = 2
+	b = "QWE"
+	d = 1/0
+	c = a+b
+except TypeError:
+	print("Ooops")
+-------------------------
+class A(Exception): pass
+
+class B(A): pass
+
+class C(B): pass
+
+for E in A,B,C:
+	try:
+		raise E
+	except C:
+		print("C")
+	except B:
+		print("B")
+	except A:
+		print("A")
+-------------------------
+class A(Exception): pass
+
+class B(A): pass
+
+class C(B): pass
+
+for E in A,B,C:
+	try:
+		raise E("QQ")
+	except B as EX:
+		print(type(EX))
+		print(EX.args)
+		print(EX)
+		print("B")
+	except A:
+		print("A")
+	except C:
+		print("C")
+-------------------------
+class A(Exception): pass
+
+class B(A): pass
+
+class C(B): pass
+
+for E in A,B,C:
+	try:
+		if E is B:
+			raise E("QQ","QQ","QQ","QKRQ")
+	except B as EX:
+		print(type(EX))
+		print(EX.args)
+		print(EX)
+		print("B")
+	except A:
+		print("A")
+	except C:
+		print("C")
+	else:
+		print("Wow, no exceptions")
+-------------------------
+try:
+	print("1")
+	a = 1/0
+	a = "WER" + 4
+	print("2")
+except TypeError:
+	print("TE")
+else:
+	print("OK")
+finally:
+	print("Done")
+-------------------------
+class Exc(Exception): pass
+
+def funexc(a):
+	if a<0:
+		raise Exc
+	return a*2+1
+
+def fun(a):
+	return funexc(a)**(1/2)
+
+try:
+	print(fun(9))
+	print(fun(-9))
+except Exc as E:
+	print("Invalid", E)
+-------------------------
+class Exc(Exception): pass
+
+def funexc(a):
+	if a<0:
+		raise Exc(a)
+	return a*2+1
+
+def fun(a):
+	return funexc(a)**(1/2)
+
+try:
+	a = fun(-9)
+except Exc as E:
+	a = E.args[0]
+
+print(a)
+-------------------------
+def constr(n):
+	def fun(a):
+		return a*2+n
+	return fun
+
+g = constr(100500)
+g(2)
+a = g.__closure__[0]
+a.cell_contents
+#Замыкание. N хранился в другом месте. Python знает, что еще понадобится и кидает сюда
+-------------------------
+def f1(x):
+	def f2():
+		def f3():
+			return x
+		return f3
+	return f2
+-------------------------
+def f1():
+	a = 42
+	def f2():
+		nonlocal a
+		a += 1
+	f2()
+	f2()
+	f2()
+	return a
+#Когда объект и не локальный, и не глобальный
+-------------------------
+def f1(x):
+	def f2(a, t=x):
+		return a+t
+	return f2
+#Замыкания не происходит
+-------------------------
+def fwrap(f, *argp, **argn):
+	print("WRAP:", *argp, **argn)
+	res = f(*argp, **argn)
+	print("WRAP:", res)
+	return res
+
+def fdec(f):
+	def funct(*argp, **argn):
+		print("WRAP:", *argp, **argn)
+		res = f(*argp, **argn)
+		print("WRAP:", res)
+		return res
+	return funct
+
+@fdec
+def fun(a,b,c):
+	return a+b+c
+
+#z = fwrap(fun,1,2,3)
+#y = fdec(fun)(1,2,3)
+#fun = fdec(fun) #ручное задание @fdec
+z = fun(1,2,3)
+y = fun(4,5,6)
+print(z,y)
+-------------------------
+def deco(n):
+	def dec2(f):
+		def fun(*ap, **an):
+			print('*'*n)
+			return f(*ap, **an)
+		return fun
+	return dec2
+
+@deco(4)
+def fun(a):
+	return a*2+1
+
+z = fun(42)
+print(z)
+-------------------------
+class C:
+	val = 100500
+	def method(self,val):
+		print(self)
+		return self.val
+	@classmethod
+	def cmethod(self):
+		print(self)
+		return self.val
+	@staticmethod
+	def smethod():
+		print("QQ")
+
+c = C()
+c.val = 42
+c.cmethod()
+c.smethod()
+-------------------------
+f=open("fpga.txt")
+list(f)
+f.close()
+with open("fpga.txt") as f:
+	for s in f:
+		print(s)
+s=f.read(10) #10 байтов. Если пустой параметр, то весь
+s=f.readline()
+f=open("oo","rb") #Пусть оо бинарный файл
+f=open("oo","w") 
+json.dump([100500,"QQ",None],f) #Хранить число 100500
+f.close()
+import pickle #Для произвольного объекта
+f=open("oo","wb")
+pickle.dump({1:0,2:1,3:1,"QQ":"ZZZ"},f)
+pickle.dump(100500,f)
+f.close()
+f=open("oo","rb")
+pickle.load(f)
+-------------------------
